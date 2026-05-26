@@ -30,6 +30,7 @@ imports:
   content: ./content.yaml
   design_kit: ./design_kit.yaml
   examples: ./examples
+  spec: ./spec
 
 source_policy:
   user_intent_priority: highest

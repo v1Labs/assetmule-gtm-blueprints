@@ -172,18 +172,6 @@ content:
       - webpage.technical_image
       - user_intent.technical_image
     fallback_strategy: omit_if_unavailable
-      resolve_from:
-        - product.description
-        - product.summary
-        - campaign.summary
-        - brand.messaging.value_prop
-        - user_intent.summary
-      transform:
-        action: summarize_product_value
-        style: plain_language
-      fallback_strategy: generate_from_available_context
-      constraints:
-        max_length: 180
   headline:
     resolve_from:
       - product.positioning
