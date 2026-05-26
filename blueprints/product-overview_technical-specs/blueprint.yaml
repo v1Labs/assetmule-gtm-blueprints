@@ -1,0 +1,72 @@
+blueprint:
+  id: product-overview-technical-specs
+  name: Product Overview + Technical Specs
+  version: 1
+  artifact_type: pdf
+
+output:
+  format: pdf
+  page_preset: letter
+  orientation: portrait
+  page_count:
+    target: 2
+    min: 1
+    max: 2
+  coordinate_system:
+    unit: pt
+    origin: top_left
+    width: 612
+    height: 792
+  rendering:
+    canvas_model: explicit_regions
+    vector_first: true
+    svg_allowed: true
+    pdf_export_required: true
+    prohibit_auto_flow_report_layouts: true
+
+imports:
+  layout: ./layout.yaml
+  components: ./components.yaml
+  content: ./content.yaml
+  design_kit: ./design_kit.yaml
+  examples: ./examples
+
+source_policy:
+  user_intent_priority: highest
+  source_material_priority: high
+  blueprint_defaults_priority: fallback
+  matching_filenames_required: false
+  source_files_are_semantic_context_pool: true
+  source_material_should_override_fallbacks_when_reliable: true
+  preserve_exact_values_from_sources: true
+  avoid_unsupported_invention: true
+
+render_policy:
+  mode: fail_closed
+  infer_missing_elements: false
+  allow_unrequested_layout_elements: false
+  empty_space_is_preferable_to_invention: true
+  user_requests_can_extend_layout: true
+
+reference_usage:
+  structure_reference:
+    purpose: Spatial layout and hierarchy reference only.
+    rules:
+      must:
+        - Do not render section labels, page names, dimensions, guides, placeholder labels, or measurement annotations from structure-reference.png.
+        - Only render text, labels, captions, and annotations explicitly defined in blueprint content or components.
+
+locked_behavior:
+  - artifact_type
+  - coordinate_system
+  - allowed_components
+  - output_format
+  - factuality_constraints
+
+audit_requirements:
+  before_final_output:
+    - Confirm all required sections are present or intentionally omitted due to insufficient source material.
+    - Confirm no unsupported technical specifications or performance claims were invented.
+    - Confirm layout follows explicit page regions rather than long-form document flow.
+    - Confirm visual hierarchy aligns with examples.
+    - Confirm PDF output remains readable at US Letter size.

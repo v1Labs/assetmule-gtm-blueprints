@@ -1,0 +1,166 @@
+layout:
+  document:
+    page_size:
+      width: 612
+      height: 792
+      unit: pt
+    orientation: portrait
+    target_page_count: 2
+
+  rules:
+    must:
+      - Treat each page as a designed canvas with explicit regions, coordinates, and bounded content areas.
+      - Preserve clear hierarchy across pages.
+      - Support rapid scanning.
+      - Balance visual content with written information.
+      - Keep related information grouped together.
+    should:
+      - Use page 1 for product framing and primary value.
+      - Use page 2 for operational and technical detail.
+      - Use modular layout structures with consistent spacing.
+      - Rebalance content density based on available imagery and source depth.
+    must_not:
+      - Create a long stacked report.
+      - Let content auto-flow from section to section without explicit regions.
+      - Add decorative systems not supported by the examples or design kit.
+      - Overfill pages with paragraph-heavy content.
+
+  pages:
+    - id: overview
+      role: product_framing
+      intent: Introduce the product, communicate primary value, and establish a strong visual anchor.
+      allowed_sections:
+        - brand_logo
+        - product_image
+        - product_name
+        - benefit_statement
+        - key_features
+
+      required_sections:
+        - product_name
+        - benefit_statement
+        - key_features
+
+      optional_sections: []
+      sections:
+        brand_logo:
+          x: space_xl
+          y: space_xl
+          width: 230
+          height: auto
+          preferred_components:
+            - logo:
+                use_when: Brand logo is available.
+                content: brand_logo
+            - medium_title:
+                use_when: Brand name is available.
+                content: brand_name
+        product_image:
+          x: 294
+          y: space_xl
+          width: 286
+          height: 600
+          preferred_components:
+            - vertical_product_image:
+                use_when: One high-resolution portrait/tall image is available.
+                content: product_image
+            - vertical_product_image_stack:
+                use_when: Multiple high-resolution horizontal images are available.
+                content: product_image_stack
+        product_name:
+          x: space_xl
+          y:
+            after: brand_logo
+            gap: space_xl
+          width: 230
+          height: auto
+          preferred_components:
+            - large_title:
+                content: product_name
+        benefit_statement:
+          x: space_xl
+          y:
+            after: product_name
+            gap: space_xl
+          width: 230
+          height: auto
+          preferred_components:
+            - benefit_statement:
+                content:
+                  heading: benefit_statement_title
+                  text: benefit_statement_body
+        key_features:
+          x: 0
+          y:
+            after: product_image
+          margin: space_xl
+          width: fill
+          height: fill
+          preferred_components:
+            - feature_cards:
+                use_when: Key features are available.
+                content:
+                  title: key_features_title
+                  features: key_features
+
+    - id: specifications
+      role: technical_detail
+      intent: Provide structured specifications, setup guidance, usage notes, and concise technical context.
+      allowed_sections:
+        - technical_image
+        - headline
+        - technical_specs
+        - website_cta
+
+      required_sections:
+        - headline
+        - technical_specs
+        - website_cta
+
+      optional_sections: []
+      sections:
+        technical_image:
+          x: space_xl
+          y: space_xl
+          width: fill
+          max_height: 300
+          preferred_components:
+            - image:
+                use_when: A high-resolution technical image is available.
+                content: technical_image
+        headline:
+          x: 0
+          y:
+            after: technical_image
+          margin: space_xl
+          width: fill
+          height: auto
+          preferred_components:
+            - headline:
+                content: headline
+        technical_specs:
+          x: 80
+          y:
+            after: headline
+            gap: space_xl
+          width: fill
+          height: auto
+          margin: space_xl
+          preferred_components:
+            - spec_grid:
+                use_when: Technical specification groups are available.
+                content:
+                  specs: technical_specs
+        website_cta:
+          x: 0
+          y:
+            after: headline
+            gap: space_xl
+          width: 80
+          height: fill
+          preferred_components:
+            - website_cta:
+                use_when: Website URL is available.
+                content:
+                  text: website_cta
+                  icon: brand_icon

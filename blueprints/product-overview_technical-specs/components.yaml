@@ -1,0 +1,242 @@
+default_component_rules:
+  must:
+    - Stay within container bounds unless overflow is explicitly allowed.
+    - Do not overlap sibling elements unless explicitly allowed.
+  should:
+    - Preserve intended spacing between elements.
+
+components:
+  logo:
+    elements:
+      image:
+        type: image
+        required: true
+        x: 0
+        y: 0
+        width: fill
+        max_height: 45
+        fit: contain
+        align: center_left
+    rules:    
+      must:
+        - Make the logo visible and recognizable.
+      should:
+        - The logo should have a high contrast with the background.
+        - The logo should have a transparent background.
+  image:
+    elements:
+      image:
+        type: image
+        required: true
+        x: 0
+        y: 0
+        width: fill
+        height: fill
+        fit: contain
+  large_title:
+    elements:
+      text:
+        type: text
+        required: true
+        typography: heading_xl
+        text_align: left
+        color: foreground
+        max_lines: 2
+  medium_title:
+    elements:
+      text:
+        type: text
+        required: true
+        typography: heading_l
+        text_align: left
+        color: foreground
+        max_lines: 2
+  vertical_product_image:
+    elements:
+      image:
+        type: image
+        required: true
+        x: 0
+        y: 0
+        width: fill
+        height: fill
+        fit: contain
+        align: center
+        border_radius: radius_md
+    rules:  
+      must:
+        - The image should be a high-resolution vertical product image.
+  vertical_product_image_stack:
+    layout:
+      direction: vertical
+      gap: space_md
+    elements:
+      images:
+        type: image_list
+        required: true
+        min_items: 2
+        max_items: 3
+        gap: space_md
+        item:
+          width: fill
+          height: fill
+          fit: contain
+          align: center
+          border-radius: radius_md
+    rules:
+      must:
+        - Preserve each image aspect ratio.
+        - Keep consistent spacing between images.
+  product_name:
+    purpose: Make the product name visible and recognizable.
+    elements:
+      text:
+        type: text
+        required: true
+        typography: heading_xl
+        text_align: left
+        color: foreground
+  benefit_statement:
+    elements:
+      heading:
+        type: text
+        required: true
+        x: 0
+        y: 0
+        typography: heading_m
+        text_align: left
+        color: foreground
+        max_lines: 2
+      text:
+        type: text
+        required: true
+        x: 0
+        y:
+          after: heading
+          gap: space_md
+        typography: body
+        text_align: left
+        color: foreground
+        max_lines: 10
+  feature_cards:
+    elements:
+      title:
+        type: text
+        required: true
+        x: 0
+        y: -40
+        typography: heading_m
+        text_align: left
+        color: foreground
+      features:
+        type: list
+        required: true
+        layout:
+          direction: horizontal
+          gap: space_lg
+        feature:
+          width: fill
+          height: fill
+          layout:
+            direction: vertical
+            gap: space_sm
+            padding_left: space_md
+          elements:
+            divider:
+              type: divider
+              position: absolute
+              x: 0
+              y: 0
+              width: thin_rule
+              height: fill
+              color: border_subtle
+            icon:
+              type: icon
+              content: icon
+            title:
+              type: text
+              content: title
+              typography: heading_s
+            description:
+              type: text
+              content: description
+              typography: body_s
+  headline:
+    elements:
+      text:
+        type: text
+        required: true
+        x: 0
+        y: 0
+        typography: heading_xl
+        text_align: left
+        color: foreground
+        max_lines: 2
+  spec_grid:
+    elements:
+      specs:
+        type: list
+        required: true
+        layout:
+          direction: grid
+          columns: 2
+          rows: 3
+          gap: space_lg
+        spec:
+          layout:
+            direction: vertical
+            gap: space_sm
+          elements:
+            title:
+              type: text
+              content: title
+              typography: heading_s
+              color: foreground
+              max_lines: 1
+            body:
+              type: rich_content
+              content: body
+              typography: body_s
+              color: muted_foreground
+              allowed_formats:
+                - paragraph
+                - list
+                - key_value
+  website_cta:
+    elements:
+      background:
+        type: shape
+        shape: rectangle
+        x: 0
+        y: 0
+        width: fill
+        height: fill
+        fill: accent
+        border_radius:
+          top_right: radius_lg
+      text:
+        type: text
+        required: true
+        content: text
+        x: 0
+        y: 0
+        width: fill
+        height: fill
+        typography: heading_m
+        color: foreground
+        text_transform: uppercase
+        rotate: 90
+        align: center
+      icon:
+        type: image
+        required: false
+        content: icon
+        x: 0
+        y:
+          before: bottom
+          gap: space_xl
+        width: fill
+        height: 32
+        fit: contain
+        align: center
+        color: foreground

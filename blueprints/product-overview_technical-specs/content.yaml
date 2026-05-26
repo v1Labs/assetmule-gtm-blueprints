@@ -1,0 +1,250 @@
+
+principles:
+  must:
+    - Preserve factual consistency with supplied source material.
+    - Prioritize clear communication.
+    - Maintain concise information density.
+    - Avoid inventing unsupported technical claims.
+    - Preserve supplied specifications, exact values, and terminology.
+  should:
+    - Balance technical and non-technical communication.
+    - Emphasize operational usefulness.
+    - Focus on meaningful product differentiators.
+    - Use direct language and short paragraphs.
+    - Group related information for scanability.
+  may:
+    - Include industry-specific terminology.
+    - Include concise technical explanations.
+    - Include simplified operational examples.
+
+source_resolution:
+  source_files_are_semantic_context_pool: true
+  exact_filenames_required: false
+  priority_order:
+    - explicit_user_intent
+    - supplied_product_documentation
+    - supplied_technical_specs
+    - supplied_visual_or_brand_context
+    - supplied_webpage_or_reference_material
+    - blueprint_fallback_guidance
+
+global_constraints:
+  tone: technical_but_approachable
+  avoid:
+    - excessive_marketing_language
+    - unsupported_superlatives
+    - fabricated_measurements
+    - fabricated_performance_claims
+    - false_compatibility_details
+    - long_uninterrupted_paragraphs
+  prefer:
+    - concise_sentences
+    - grouped_lists
+    - exact_spec_values
+    - practical_benefits
+    - operational_clarity
+
+external_sources:
+  brandfetch:
+    purpose: Resolve brand assets from company domains.
+    documentation: https://docs.brandfetch.com
+    capabilities:
+      - logo
+      - colors
+      - icons
+    usage_guidelines:
+      - Prefer SVG assets when available.
+      - Prefer transparent backgrounds for logos.
+      - Use only when a domain is confidently resolved.
+
+content:
+  brand_name:
+    resolve_from:
+      - product.brand
+      - source.brand_name
+      - webpage.brand_name
+      - user_intent.brand_name
+    fallback_strategy: require_user_input_or_infer_from_intent
+    constraints:
+      max_length: 40
+  brand_domain:
+    type: domain
+    resolve_from:
+      - brand.domain
+      - company.website
+      - user_intent.brand_domain
+    fallback_strategy: require_user_input
+  brand_logo:
+    type: image
+    resolve_from:
+      - brand.logo
+      - design_system.logo
+      - external.brandfetch.logo:
+          domain: brand_domain
+    constraints:
+      preferred_format:
+        - svg
+        - png
+      transparent_background: preferred
+    fallback_strategy: omit_if_unavailable
+  product_name:
+    resolve_from:
+      - product.name
+      - source.product_name
+      - webpage.product_title
+      - user_intent.product_name
+    fallback_strategy: require_user_input_or_infer_from_intent
+    constraints:
+      max_length: 72
+  product_image:
+    resolve_from:
+      - product.image
+      - source.product_image
+      - webpage.product_image
+      - user_intent.product_image
+    fallback_strategy: omit_if_unavailable
+  product_image_stack:
+    resolve_from:
+      - product.images
+      - source.product_images
+      - webpage.product_images
+      - user_intent.product_images
+    fallback_strategy: omit_if_unavailable
+  benefit_statement_title:
+    resolve_from:
+      - product.benefit_statement_title
+      - generate_from:
+        source: brand_guidelines
+        instruction: Create a concise benefit statement title.
+    fallback:
+      strategy: use_static_value
+      value: "Product Benefits"
+    constraints:
+      max_length: 40
+  benefit_statement_body:
+    resolve_from:
+      - product.benefit_statement_body
+      - generate_from:
+        source: brand_guidelines
+        instruction: Create a concise benefit statement body.
+    constraints:
+      max_length: 250
+      max_sentences: 6
+  key_features_title:
+    resolve_from:
+      - product.key_features_title
+      - generate_from:
+        source: brand_guidelines
+        instruction: Create a concise key features title.
+    fallback:
+      strategy: use_static_value
+      value: "Key Features"
+    constraints:
+      max_length: 40
+  key_features:
+    type: list
+    item_schema:
+      icon:
+        type: icon
+        required: false
+      title:
+        type: text
+        required: true
+      description:
+        type: text
+        required: false
+    resolve_from:
+      - product.key_features
+      - product.benefits
+      - source.feature_list
+      - generate_from:
+          source: product_context
+          instruction: Create concise feature objects with an icon concept and short text.
+    constraints:
+      min_items: 3
+      max_items: 6
+      title_max_length: 36
+      description_max_length: 90
+  technical_image:
+    resolve_from:
+      - product.technical_image
+      - source.technical_image
+      - webpage.technical_image
+      - user_intent.technical_image
+    fallback_strategy: omit_if_unavailable
+      resolve_from:
+        - product.description
+        - product.summary
+        - campaign.summary
+        - brand.messaging.value_prop
+        - user_intent.summary
+      transform:
+        action: summarize_product_value
+        style: plain_language
+      fallback_strategy: generate_from_available_context
+      constraints:
+        max_length: 180
+  headline:
+    resolve_from:
+      - product.positioning
+      - product.primary_benefit
+      - campaign.primary_message
+      - brand.messaging.value_prop
+      - user_intent.primary_message
+      - source.headline
+      - webpage.headline
+      - user_intent.headline
+    fallback_strategy: generate_from_available_context
+    constraints:
+      max_length: 72
+  technical_specs:
+    type: list
+    resolve_from:
+      - product.technical_specs
+      - source.specifications
+      - webpage.spec_table
+      - generate_from:
+          source: product_context
+          instruction: Create concise technical specification groups grounded in source material.
+    constraints:
+      min_items: 4
+      max_items: 6
+      require_source_grounding: true
+    spec_schema:
+      title:
+        type: text
+        required: true
+        max_length: 32
+      body:
+        type: rich_content
+        required: true
+        allowed_formats:
+          - paragraph
+          - list
+          - key_value
+  website_cta:
+    type: text
+    resolve_from:
+      - brand.website
+      - brand.domain
+      - product.website
+      - user_intent.website
+    transform:
+      action: format_as_display_url
+      example: WWW.BRAND.COM
+    fallback:
+      strategy: omit_if_unavailable
+  brand_icon:
+    type: image
+    resolve_from:
+      - brand.icon
+      - brand.logo_icon
+      - external.brandfetch.icon:
+          domain: brand_domain
+    constraints:
+      preferred_format:
+        - svg
+        - png
+      transparent_background: preferred
+    fallback:
+      strategy: omit_if_unavailable

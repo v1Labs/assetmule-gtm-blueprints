@@ -1,0 +1,194 @@
+design_kit:
+  resolution_policy:
+    source_files_are_semantic_context_pool: true
+    exact_filenames_required: false
+    prefer_supplied_brand_or_design_references: true
+    fallback_when_unavailable: use_default_technical_spec_style
+
+  visual_tone:
+    resolve_from:
+      - brand.visual_tone
+      - design_system.tone
+      - supplied_examples.visual_language
+      - website.visual_style
+      - product.category
+    fallback:
+      - minimal
+      - structured
+      - functional
+      - clean
+      - professional
+      - technical_but_approachable
+
+  colors:
+    background:
+      resolve_from:
+        - brand.colors.background
+        - design.colors.background
+        - website.colors.background
+      fallback: "#ffffff"
+      constraints:
+        must_preserve_readability: true
+    foreground:
+      resolve_from:
+        - brand.colors.foreground
+        - brand.colors.text
+        - design.colors.foreground
+        - website.colors.text
+      fallback: "#111111"
+      constraints:
+        must_preserve_readability: true
+    muted_foreground:
+      resolve_from:
+        - brand.colors.muted_text
+        - design.colors.secondary_text
+        - website.colors.muted
+      fallback: "#5f5f5f"
+    accent:
+      resolve_from:
+        - brand.colors.primary
+        - brand.colors.accent
+        - campaign.colors.accent
+        - website.colors.accent
+      fallback: "#FFDC74"
+      constraints:
+        use_intentionally_not_decoratively: true
+    border:
+      resolve_from:
+        - brand.colors.border
+        - design.colors.border
+      fallback: "#d9d9d9"
+    surface:
+      resolve_from:
+        - brand.colors.surface
+        - design.colors.surface
+      fallback: "#f5f5f2"
+
+  typography:
+    heading_xl:
+      resolve_from:
+        - brand.typography.display
+        - brand.fonts.heading
+        - design_system.typography.heading_xl
+        - website.fonts.heading
+      fallback:
+        font_family: Inter
+        font_size: 32
+        font_weight: 700
+        line_height: 36
+        letter_spacing: -0.4
+    heading_l:
+      resolve_from:
+        - brand.typography.heading
+        - brand.fonts.heading
+        - design_system.typography.heading_l
+      fallback:
+        font_family: Inter
+        font_size: 20
+        font_weight: 700
+        line_height: 24
+    heading_m:
+      resolve_from:
+        - brand.typography.subheading
+        - design_system.typography.heading_m
+      fallback:
+        font_family: Inter
+        font_size: 13
+        font_weight: 700
+        line_height: 16
+    body:
+      resolve_from:
+        - brand.typography.body
+        - brand.fonts.body
+        - design_system.typography.body
+        - website.fonts.body
+      fallback:
+        font_family: Inter
+        font_size: 10
+        font_weight: 400
+        line_height: 14
+    label:
+      resolve_from:
+        - brand.typography.label
+        - design_system.typography.label
+      fallback:
+        font_family: Inter
+        font_size: 8
+        font_weight: 700
+        line_height: 10
+        letter_spacing: 0.6
+        text_transform: uppercase
+    spec_value:
+      resolve_from:
+        - brand.typography.mono
+        - design_system.typography.mono
+        - brand.typography.body
+      fallback:
+        font_family: Inter
+        font_size: 9
+        font_weight: 500
+        line_height: 12
+
+  spacing:
+    resolve_from:
+      - design_system.spacing
+      - brand.spacing
+      - supplied_examples.spacing_rhythm
+    fallback:
+      space_xs: 4
+      space_sm: 8
+      space_md: 12
+      space_lg: 20
+      space_xl: 32
+      space_xxl: 48
+
+  borders:
+    resolve_from:
+      - design_system.borders
+      - brand.borders
+    fallback:
+      thin_rule: 0.75
+      standard_rule: 1
+      radius_sm: 4
+      radius_md: 8
+      radius_lg: 14
+
+  imagery:
+    source_resolution:
+      resolve_from:
+        - product.images
+        - product.photography
+        - supplied_visual_assets
+        - website.product_images
+        - documentation.diagrams
+    treatment:
+      must:
+        - Support product understanding.
+        - Reinforce hierarchy.
+        - Integrate cleanly into the document structure.
+      should:
+        - Use operational context when available.
+        - Preserve clean professional presentation.
+        - Avoid purely decorative imagery.
+      may:
+        - Use product photography.
+        - Use diagrams.
+        - Use technical illustrations.
+        - Use screenshots.
+
+  style_rules:
+    must:
+      - Preserve strong visual hierarchy.
+      - Prioritize readability and contrast.
+      - Maintain clean spacing and alignment.
+      - Keep specification content organized and readable.
+    should:
+      - Use restrained visual styling.
+      - Favor clean sans-serif typography.
+      - Use thin divider rules and compact technical labels.
+      - Balance technical and commercial presentation.
+    may:
+      - Use bold typography.
+      - Use high-contrast layouts.
+      - Use technical drawing aesthetics.
+      - Use subtle industrial or operational visual language.
