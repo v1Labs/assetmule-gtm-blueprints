@@ -56,7 +56,7 @@ This project is for:
 
     .
     ├── blueprints/
-    │   └── product-overview_technical-specs/
+    │   └── product-overview-technical-specs/
     │       ├── README.md
     │       ├── blueprint.yaml
     │       ├── layout.yaml
@@ -168,7 +168,7 @@ A reusable prompt should live with each blueprint. For example:
 
 Path:
 
-    blueprints/product-overview_technical-specs/
+    blueprints/product-overview-technical-specs/
 
 Purpose:
 
