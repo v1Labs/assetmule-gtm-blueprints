@@ -59,7 +59,7 @@ layout:
           x: 294
           y: space_xl
           width: 286
-          height: 600
+          height: 560
           preferred_components:
             - vertical_product_image:
                 use_when: One high-resolution portrait/tall image is available.
@@ -74,6 +74,11 @@ layout:
             gap: space_xl
           width: 230
           height: auto
+          layout_hints:
+            - Treat brand_logo, product_name, and benefit_statement as one compact hero identity group.
+            - Keep the group vertically tight; do not add extra spacing between these elements for page balance.
+            - Preserve the declared y.gap values exactly between brand_logo, product_name, and benefit_statement.
+            - Create visual balance through the product_image and lower sections, not by expanding this text group.
           preferred_components:
             - large_title:
                 content: product_name
@@ -96,6 +101,14 @@ layout:
           margin: space_xl
           width: fill
           height: fill
+          layout_hints:
+            - This section must visually separate from the product_image above it.
+            - Preserve the top margin as clear whitespace before rendering the feature_cards component.
+            - The feature_cards title should not touch or overlap the product_image.
+            - If vertical space is tight, reduce product_image height or feature card density before removing this separation.
+            - Prefer the five strongest, most distinct characteristics.
+            - Avoid including overlapping characteristics only to fill available slots.
+            - Do not let feature card content touch or crowd the bottom page margin.
           preferred_components:
             - feature_cards:
                 use_when: Key features are available.
@@ -123,7 +136,7 @@ layout:
           x: space_xl
           y: space_xl
           width: fill
-          max_height: 300
+          max_height: 225
           preferred_components:
             - image:
                 use_when: A high-resolution technical image is available.

@@ -128,8 +128,8 @@ content:
         source: brand_guidelines
         instruction: Create a concise benefit statement body.
     constraints:
-      max_length: 250
-      max_sentences: 6
+      max_length: 400
+      max_sentences: 9
   key_features_title:
     resolve_from:
       - product.key_features_title
@@ -207,8 +207,6 @@ content:
         type: rich_content
         required: true
         allowed_formats:
-          - paragraph
-          - list
           - key_value
   website_cta:
     type: text

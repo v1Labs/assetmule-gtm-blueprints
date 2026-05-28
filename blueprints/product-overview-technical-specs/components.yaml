@@ -117,7 +117,8 @@ components:
         typography: body
         text_align: left
         color: foreground
-        max_lines: 10
+        max_lines: 14
+        max_paragraphs: 3
   feature_cards:
     elements:
       title:
@@ -199,10 +200,11 @@ components:
               typography: body_s
               color: muted_foreground
               allowed_formats:
-                - paragraph
-                - list
                 - key_value
   website_cta:
+    layout_hints:
+      - Text is required; Icon is optional.
+      - Omit the icon if it causes crowding, wrapping, or reduced readability.
     elements:
       background:
         type: shape
